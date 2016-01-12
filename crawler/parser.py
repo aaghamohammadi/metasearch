@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from crawler.item_pipeline import ItemPipeline
 
 
 class Parser:
@@ -7,5 +8,8 @@ class Parser:
 
     def parse(self):
         soup = BeautifulSoup(self.start_page.text, 'lxml')
-        for title in soup.select("h1.publication-title"):
-            print(title.text)
+        title = soup.select("h1.publication-title")[0]
+
+        app = ItemPipeline(title.string)
+        # print(app)
+        return app
