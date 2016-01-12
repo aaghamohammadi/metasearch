@@ -8,6 +8,6 @@ class Scheduler:
         pass
 
     def crawl(self):
-        downloader = Downloader()
-        downloader.get_app_from_link(self.starting_url)
+        downloader = Downloader(self.starting_url)
+        downloader.get_app_from_link()
         pass
