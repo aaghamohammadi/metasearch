@@ -25,7 +25,7 @@ for i in range(len(vectors)):
     k_points.append(i + 1)
     j_points.append(kmeans.kmenas(i + 1))
 
-print(k_points)
-print(j_points)
+# print(k_points)
+# print(j_points)
 plt.plot(j_points, k_points)
 plt.show()
