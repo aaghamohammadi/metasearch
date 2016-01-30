@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load staticfiles %}
+
+{% block container %}
+    <div class="container">
+        <div class="px-40 vertical spacer"></div>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header deep-orange lighten-5">Crawler</div>
+                <div class="collapsible-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ crawler_form }}
+                                <button name="crawl-btn" type="submit" class="waves-effect waves-light btn full width">
+                                    crawl
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header blue-grey lighten-5">Index</div>
+                <div class="collapsible-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ index_form }}
+                                <button name="index-btn" type="submit" class="waves-effect waves-light btn full width">
+                                    index
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">Third</div>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

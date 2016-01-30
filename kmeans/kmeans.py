@@ -57,7 +57,7 @@ class Kmeans:
             for i in range(k):
                 centeroids[i] = self.average_of_vectors(cluster_members[i])
                 labels = [self.similarity(u, centeroids[i]) for u in cluster_members[i]]
-                # print("labels for cluster ", i, ": ", cluster_members[i][labels.index(max(labels))])
+                print("labels for cluster ", i, ": ", cluster_members[i][labels.index(max(labels))])
 
                 for temp in cluster_members[i]:
                     j += sum(map(lambda x: (x[0] - x[1]) ** 2, zip(temp, centeroids[i])))
