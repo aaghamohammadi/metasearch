@@ -48,5 +48,3 @@ class Kmeans:
 
             for i in range(k):
                 centeroids[i] = self.average_of_vectors(cluster_members[i])
-
-            print('New centeroids =', centeroids)

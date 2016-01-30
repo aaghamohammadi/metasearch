@@ -17,7 +17,7 @@ documents = (
 )
 vectorizer = CountVectorizer()
 vectors = vectorizer.fit_transform(documents).todense()
-vectors=vectors.tolist()
+vectors = vectors.tolist()
 print(vectors)
 # vectors = [
 #     [1, 1, 1, 0],
