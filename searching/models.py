@@ -11,3 +11,18 @@ class Crawler(models.Model):
 
 class Indexing(models.Model):
     direction = models.CharField(max_length=150, null=True, blank=True)
+
+
+class Clustering(models.Model):
+    direction = models.CharField(max_length=150, null=True, blank=True)
+
+
+class PageRanking(models.Model):
+    alpha = models.FloatField(null=True, blank=True)
+    threshold = models.IntegerField(null=True, blank=True)
+
+
+class Query(models.Model):
+    cluster = models.BooleanField(blank=True)
+    pagerank = models.BooleanField(blank=True)
+    query = models.CharField(max_length=150, null=True, blank=True)

@@ -1,9 +1,8 @@
 from elasticsearch import Elasticsearch
 import os, json
 
-
-
 es = Elasticsearch()
+
 
 def index(elastic, dir):
     path_to_json = dir
@@ -12,6 +11,3 @@ def index(elastic, dir):
         with open(os.path.join(path_to_json, js)) as json_file:
             data = json.loads(json_file)
             elastic.index(index='researchGate', doc_type='articles', body=data)
-
-
-

@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% load staticfiles %}
-
+{% block navbar %}
+    <h4 class="center teal-text">Reasearch Gate</h4>
+{% endblock %}
 {% block container %}
     <div class="container">
         <div class="px-40 vertical spacer"></div>
@@ -31,7 +33,7 @@
                                 {% csrf_token %}
                                 {{ index_form }}
                                 <button name="index-btn" type="submit" class="waves-effect waves-light btn full width">
-                                    index
+                                    indexer
                                 </button>
                             </form>
                         </div>
@@ -39,8 +41,55 @@
                 </div>
             </li>
             <li>
-                <div class="collapsible-header">Third</div>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                <div class="collapsible-header  teal lighten-5">Clustering</div>
+                <div class="collapsible-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ cluster_form }}
+                                <button name="cluster-btn" type="submit"
+                                        class="waves-effect waves-light btn full width">
+                                    Cluster
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header  lime lighten-4">PageRank</div>
+                <div class="collapsible-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ page_rank_form }}
+                                <button name="page-rank-btn" type="submit"
+                                        class="waves-effect waves-light btn full width">
+                                    PageRank
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header  light-green lighten-2">Query</div>
+                <div class="collapsible-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ query_form }}
+                                <button name="page-rank-btn" type="submit"
+                                        class="waves-effect waves-light btn full width">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
