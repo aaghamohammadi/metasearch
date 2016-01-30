@@ -10,7 +10,28 @@ class Parser:
         self.uid = uid
 
 
-    def extract_links(self):
+    def extract_in_links(self):
+        links = []
+
+        headers = {
+             'accept': 'application/json',
+             'x-requested-with': 'XMLHttpRequest'
+        }
+
+        #for cited-in s
+        js_resource_url = 'http://www.researchgate.net/publicliterature.PublicationIncomingCitationsList.html?' \
+                           'publicationUid=' + str(self.uid) + '&showCitationsSorter=true' \
+                                                          '&showAbstract=true&showType=true&showPublicationPreview=true' \
+                                                          '&swapJournalAndAuthorPositions=false'
+        r = requests.get(js_resource_url, headers=headers)
+        for jreq in json.loads(r.text)['result']['data']['citationItems']:
+            links.append(str('http://www.researchgate.net/' + jreq['data']['publicationUrl']))
+
+
+        return links
+
+
+    def extract_out_links(self):
         links = []
 
         headers = {
@@ -27,17 +48,9 @@ class Parser:
         for jreq in json.loads(r.text)['result']['data']['citationItems']:
             links.append(str('http://www.researchgate.net/' + jreq['data']['publicationUrl']))
 
-        #for cited-in s
-        js_resource_url = 'http://www.researchgate.net/publicliterature.PublicationIncomingCitationsList.html?' \
-                           'publicationUid=' + str(self.uid) + '&showCitationsSorter=true' \
-                                                          '&showAbstract=true&showType=true&showPublicationPreview=true' \
-                                                          '&swapJournalAndAuthorPositions=false'
-        r = requests.get(js_resource_url, headers=headers)
-        for jreq in json.loads(r.text)['result']['data']['citationItems']:
-            links.append(str('http://www.researchgate.net/' + jreq['data']['publicationUrl']))
-
 
         return links
+
 
     def parse(self):
         soup = BeautifulSoup(self.start_page.text, 'lxml')
@@ -45,9 +58,10 @@ class Parser:
         authors = soup.select("div.publication-detail-author-list  span[itemprop=name]")
         abstract = soup.select("p[itemprop=description]")[0].find_next_siblings("div")[0].text
 
-        links = self.extract_links()
+        out_links = self.extract_links()
+        in_links = self.extract_in_links()
 
 
-        app = ItemPipeline(self.uid, title, abstract, authors, links)
+        app = ItemPipeline(self.uid, title, abstract, authors, in_links, out_links)
         print(app)
         return app
