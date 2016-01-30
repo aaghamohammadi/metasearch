@@ -1,5 +1,6 @@
 from math import sqrt
 from operator import itemgetter
+from global_functions import update_progress
 
 
 class Kmeans:
@@ -30,7 +31,7 @@ class Kmeans:
 
     def belongs_to_cluster(self, v, centeroids):
         similarities = [self.similarity(u, v) for u in centeroids]
-        print('similarities for', v, '=', similarities)
+        # print('similarities for', v, '=', similarities)
         return max(enumerate(similarities), key=itemgetter(1))[0]
 
     def kmenas(self):
@@ -39,12 +40,13 @@ class Kmeans:
         k = len(centeroids)
         iterations = 5
         for j in range(iterations):
+            update_progress(j, iterations)
             cluster_members = [[] for u in centeroids]
             for v in self.vectors:
                 cluster_members[self.belongs_to_cluster(v, centeroids)].append(v)
 
-            for clnum in range(k):
-                print('members of cluster', clnum, ' = ', cluster_members[clnum])
+                # for clnum in range(k):
+                # print('members of cluster', clnum, ' = ', cluster_members[clnum])
 
             for i in range(k):
                 centeroids[i] = self.average_of_vectors(cluster_members[i])
