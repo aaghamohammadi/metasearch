@@ -4,3 +4,4 @@ requests==2.9.1
 elasticsearch==2.2.0
 numpy
 scipy
+sklearn
