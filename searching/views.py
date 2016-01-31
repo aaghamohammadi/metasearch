@@ -6,7 +6,12 @@ from sklearn.feature_extraction.text import CountVectorizer
 from kmeans.kmeans import Kmeans
 from searching.forms import CrawlerForm, IndexForm, ClusterForm, PageRankForm, QueryForm
 import matplotlib.pyplot as plt
+from crawler.scheduler import Scheduler
+from elasticsearch import Elasticsearch
+from elasticSearch import searcher
+from page_rank import adjacent_matrix, page_rank
 
+es = Elasticsearch
 
 def index(request):
     template_name = 'index.html'
@@ -19,7 +24,8 @@ def index(request):
                 out_degree = crawler_form.cleaned_data['out_degree']
                 starting_url = crawler_form.cleaned_data['starting_url']
                 urls = [x.strip() for x in starting_url.split(',')]
-                pass
+                crawler = Scheduler(starting_url=urls, num=n_docs, in_degre=in_degree, out_degree=out_degree)
+                crawler.crawl()
             else:
                 return render(request, template_name, {'crawler_form': crawler_form})
         if "index-btn" in request.POST:
@@ -27,7 +33,8 @@ def index(request):
             if index_form.is_valid():
                 direction = index_form.cleaned_data['direction']
                 print(direction)
-                pass
+                searcher.index(es, direction)
+
             else:
                 return render(request, template_name, {'index_form', index_form})
         if "cluster-btn" in request.POST:
@@ -59,7 +66,9 @@ def index(request):
             if page_rank_form.is_valid():
                 alpha = page_rank_form.cleaned_data['alpha']
                 threshold = page_rank_form.cleaned_data['threshold']
-                pass
+
+
+
             else:
                 return render(request, template_name, {'page_rank_form': page_rank_form})
         if "query-btn" in request.POST:

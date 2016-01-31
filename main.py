@@ -2,10 +2,10 @@ from crawler.scheduler import Scheduler
 from kmeans.kmeans import Kmeans
 
 
-# link = 'http://www.researchgate.net/publication/278332447_MCMC_for_Variationally_Sparse_Gaussian_Processes'
+link = 'http://www.researchgate.net/publication/278332447_MCMC_for_Variationally_Sparse_Gaussian_Processes'
 #
-# crawler = Scheduler(link, 20)
-# crawler.crawl()
+crawler = Scheduler(link, 20)
+crawler.crawl()
 
 from sklearn.feature_extraction.text import CountVectorizer
 
