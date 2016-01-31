@@ -15,5 +15,7 @@ class Downloader:
         parser = Parser(start_page, uid)
         app = parser.parse()
 
+        if app is 0:
+            return 0
 
         return app

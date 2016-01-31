@@ -53,15 +53,20 @@ class Parser:
 
 
     def parse(self):
-        soup = BeautifulSoup(self.start_page.text, 'lxml')
-        title = soup.select("h1")[0].text
-        authors = soup.select("div.publication-detail-author-list  span[itemprop=name]")
-        abstract = soup.select("p[itemprop=description]")[0].find_next_siblings("div")[0].text
+        try:
+            soup = BeautifulSoup(self.start_page.text, 'lxml')
+            title = soup.select("h1")[0].text
+            authors = soup.select("div.publication-detail-author-list  span[itemprop=name]")
+            abstract = soup.select("p[itemprop=description]")[0].find_next_siblings("div")[0].text
 
-        out_links = self.extract_links()
-        in_links = self.extract_in_links()
+            out_links = self.extract_out_links()
+            in_links = self.extract_in_links()
 
 
-        app = ItemPipeline(self.uid, title, abstract, authors, in_links, out_links)
+            app = ItemPipeline(self.uid, title, abstract, authors, in_links, out_links)
+
+        except:
+            return 0
+
         print(app)
         return app
