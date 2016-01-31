@@ -9,6 +9,7 @@ from operator import itemgetter
 
 def index(elastic, dir='./resources/jsonFiles'):
 
+
     path_to_json = dir
     json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
     for i, js in enumerate(json_files):

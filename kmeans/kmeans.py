@@ -1,5 +1,7 @@
 from math import sqrt
 from operator import itemgetter
+import numpy
+from global_functions import update_progress
 
 
 class Kmeans:
@@ -30,23 +32,34 @@ class Kmeans:
 
     def belongs_to_cluster(self, v, centeroids):
         similarities = [self.similarity(u, v) for u in centeroids]
-        print('similarities for', v, '=', similarities)
+        # print('similarities for', v, '=', similarities)
         return max(enumerate(similarities), key=itemgetter(1))[0]
 
-    def kmenas(self):
-
-        centeroids = [self.vectors[0], self.vectors[1]]
-        k = len(centeroids)
+    def kmenas(self, k):
+        j = 0
+        centeroids = []
+        for i in range(k):
+            centeroids.append(self.vectors[i])
+        # centeroids = [self.vectors[0], self.vectors[1]]
         iterations = 5
-        for j in range(iterations):
+        # k = len(centeroids)
+        for iterate in range(iterations):
+            update_progress(iterate, iterations)
             cluster_members = [[] for u in centeroids]
+
             for v in self.vectors:
                 cluster_members[self.belongs_to_cluster(v, centeroids)].append(v)
 
-            for clnum in range(k):
-                print('members of cluster', clnum, ' = ', cluster_members[clnum])
+                # for clnum in range(k):
+                #     print('members of cluster', clnum, ' = ', cluster_members[clnum])
+                #     print(len(cluster_members[clnum]))
 
             for i in range(k):
                 centeroids[i] = self.average_of_vectors(cluster_members[i])
+                labels = [self.similarity(u, centeroids[i]) for u in cluster_members[i]]
+                # print("labels for cluster ", i, ": ", cluster_members[i][labels.index(max(labels))])
 
-            print('New centeroids =', centeroids)
+                for temp in cluster_members[i]:
+                    j += sum(map(lambda x: (x[0] - x[1]) ** 2, zip(temp, centeroids[i])))
+
+        return j
