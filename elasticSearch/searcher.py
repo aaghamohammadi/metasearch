@@ -47,13 +47,10 @@ def search(elastic, query_in, boost={'author':1, 'title':1, 'abstract':1}, num=6
 
     pprint(response)
 
-    ans=[]
-
-    for i,res in enumerate(response['hits']['hits']):
-        ans.append((res['_source']['uid'], res['_source']['title'], res['_score']))
-
-
-    return ans
+    return [
+        (res['_source']['uid'], res['_source']['title'], res['_score'])
+        for i, res in enumerate(response['hits']['hits'])
+    ]
 
 def pagerank_search(r, uid_to_index, elastic, query_in, boost={'author':1, 'title':1, 'abstract':1}, num=6):
 

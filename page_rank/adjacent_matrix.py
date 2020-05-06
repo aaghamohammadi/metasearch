@@ -34,7 +34,7 @@ def create_matrix(dir='./resources/jsons'):
 
         for link in jso['out_links']:
             link_uid = re.search(r'\d+', link).group()
-            if link_uid in uid_to_index.keys():
+            if link_uid in uid_to_index:
                 print (jso['uid'])
                 print(link_uid)
                 GT[i][uid_to_index[link_uid]] = 1

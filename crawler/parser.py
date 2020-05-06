@@ -11,8 +11,6 @@ class Parser:
 
 
     def extract_in_links(self):
-        links = []
-
         headers = {
              'accept': 'application/json',
              'x-requested-with': 'XMLHttpRequest'
@@ -24,16 +22,13 @@ class Parser:
                                                           '&showAbstract=true&showType=true&showPublicationPreview=true' \
                                                           '&swapJournalAndAuthorPositions=false'
         r = requests.get(js_resource_url, headers=headers)
-        for jreq in json.loads(r.text)['result']['data']['citationItems']:
-            links.append(str('http://www.researchgate.net/' + jreq['data']['publicationUrl']))
-
-
-        return links
+        return [
+            str('http://www.researchgate.net/' + jreq['data']['publicationUrl'])
+            for jreq in json.loads(r.text)['result']['data']['citationItems']
+        ]
 
 
     def extract_out_links(self):
-        links = []
-
         headers = {
              'accept': 'application/json',
              'x-requested-with': 'XMLHttpRequest'
@@ -45,11 +40,10 @@ class Parser:
                                                           '&showAbstract=true&showType=true&showPublicationPreview=true' \
                                                           '&swapJournalAndAuthorPositions=false'
         r = requests.get(js_resource_url, headers=headers)
-        for jreq in json.loads(r.text)['result']['data']['citationItems']:
-            links.append(str('http://www.researchgate.net/' + jreq['data']['publicationUrl']))
-
-
-        return links
+        return [
+            str('http://www.researchgate.net/' + jreq['data']['publicationUrl'])
+            for jreq in json.loads(r.text)['result']['data']['citationItems']
+        ]
 
 
     def parse(self):
