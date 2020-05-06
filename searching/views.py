@@ -77,7 +77,6 @@ def index(request):
                 cluster = query_form.cleaned_data['cluster']
                 pagerank = query_form.cleaned_data['pagerank']
                 query = query_form.cleaned_data['query']
-                pass
             else:
                 return render(request, template_name, {'query_form': query_form})
 
