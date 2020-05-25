@@ -1,8 +1,8 @@
 sklearn
-beautifulsoup4==4.4.1
-lxml==3.5.0
-requests==2.9.1
-elasticsearch==2.2.0
+beautifulsoup4>=4.4.1
+lxml>=3.5.0
+requests >=2.20.0
+elasticsearch>=2.2.0
 numpy
 scipy
 sklearn
